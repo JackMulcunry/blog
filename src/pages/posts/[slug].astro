@@ -1,6 +1,5 @@
 ---
 import { getEntryBySlug, getCollection } from 'astro:content';
-import type { APIContext } from 'astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
