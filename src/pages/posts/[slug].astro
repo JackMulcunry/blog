@@ -1,0 +1,28 @@
+---
+import { getEntryBySlug, getCollection } from 'astro:content';
+import type { APIContext } from 'astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { slug } = Astro.params;
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{post.data.title}</title>
+  </head>
+  <body>
+    <h1>{post.data.title}</h1>
+    <p><em>{post.data.date}</em></p>
+    <Content />
+  </body>
+</html>
